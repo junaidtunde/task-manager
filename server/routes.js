@@ -76,7 +76,7 @@ routes.put('/task/archive', verifyAdmin, controllers.taskController.changeStatus
 
 // Comment Routes
 routes.post('/comment/create', controllers.commentController.createComment);
-routes.post('/comment/fetch', controllers.commentController.fetchCommentsAllByPost);
+routes.post('/comment/fetch', controllers.commentController.fetchCommentsAllByTask);
 routes.delete('/comment/delete/:id', verifyAdmin, controllers.commentController.deleteComment);
 
 export default routes;

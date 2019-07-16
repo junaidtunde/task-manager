@@ -1,0 +1,521 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Task Manager Documentation",
+        "description": "Documentation for Task Manager endpoints",
+        "license": {
+            "name": "Task Manager",
+            "url": "https://tasks-managers.herokuapp.com/api-docs/#/"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [{
+        "name": "Users",
+        "description": "API for dash users"
+    }],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/user/login": {
+            "parameters": [{
+                "name": "login",
+                "in": "body",
+                "description": "These can be passed, click on Model to see which ones are required",
+                "schema": {
+                    "$ref": "#/definitions/UserLogin"
+                }
+            }],
+            "description": "Logs users in",
+            "produces": [
+                "application/json"
+            ],
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logs users into the system",
+                "responses": {
+                    "200": {
+                        "description": "User saved and logged in successfully"
+                    },
+                    "409": {
+                        "description": "Wrong Login Details"
+                    },
+                    "500": {
+                        "description": "An error occured while trying to login"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Allows user registration with the provided info",
+                "summary": "Used to create a user account",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "These can be passed, click on Model to see which ones are required, _token should be passed as header for authorization",
+                    "schema": {
+                        "$ref": "#/definitions/UserRegister"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Account has been created"
+                    },
+                    "409": {
+                        "description": "The user already exists"
+                    },
+                    "500": {
+                        "description": "An error occured while creating the user account"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/getInfo": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Gets all the details for a particular user",
+                "summary": "Used to get all details for a specific user",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Only the user's token should be passed as header"
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The details have been returned successfully"
+                    },
+                    "404": {
+                        "description": "The user was not found"
+                    },
+                    "500": {
+                        "description": "An unexpected error occured"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/all": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "Succesfully gotten the list of users"
+                    },
+                    "500": {
+                        "description": "Unable to get the list of all users"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/create": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Creates a new account for an admin",
+                "summary": "Used to create an account for a new admin",
+                "parameters": [{
+                    "name": "admin",
+                    "in": "body",
+                    "description": "These can be passed, click on Model to see which ones are required",
+                    "schema": {
+                        "$ref": "#/definitions/CreateAdmin"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The admin have been successfully created"
+                    },
+                    "409": {
+                        "description": "The account has already been created"
+                    },
+                    "500": {
+                        "description": "An unexpected error occured"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/login": {
+            "parameters": [{
+                "name": "login",
+                "in": "body",
+                "description": "These can be passed, click on Model to see which ones are required",
+                "schema": {
+                    "$ref": "#/definitions/AdminLogin"
+                }
+            }],
+            "description": "Logs the admin in",
+            "produces": [
+                "application/json"
+            ],
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Logs administator into the system",
+                "responses": {
+                    "200": {
+                        "description": "Admin logged in successfully"
+                    },
+                    "404": {
+                        "description": "There's no account created for the details provided"
+                    },
+                    "500": {
+                        "description": "An error occured while trying to login"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/one": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get the admin's details, also pass admin token as authorization header",
+                "responses": {
+                    "200": {
+                        "description": "Admin logged in successfully"
+                    },
+                    "404": {
+                        "description": "There's no account created for the details provided"
+                    },
+                    "500": {
+                        "description": "There was an error setting up your pin"
+                    }
+                }
+            }
+        },
+        "/api/v1/task/create": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "description": "Creates a new task and send a notification email to the user that has been assigned to it",
+                "summary": "Used to create a new task",
+                "parameters": [{
+                    "name": "task",
+                    "in": "body",
+                    "description": "These can be passed, click on Model to see which ones are required. Also pass admin token as authorization header",
+                    "schema": {
+                        "$ref": "#/definitions/CreateTask"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The task have been successfully created and a notification email has been sent to the user"
+                    },
+                    "404": {
+                        "description": "The admin or the task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "An unexpected error occured"
+                    }
+                }
+            }
+        },
+        "/api/v1/task/inprogress": {
+            "put": {
+                "summary": "Update the task and sends a notification email to the attached user",
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [{
+                    "name": "task",
+                    "in": "body",
+                    "description": "Updates the status of the task to in progress, and also pass user token as authorization header",
+                    "schema": {
+                        "$ref": "#/definitions/ChangeTaskStatus"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated this status of the task"
+                    },
+                    "404": {
+                        "description": "The admin or the task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "There was an error updating this task"
+                    }
+                }
+            }
+        },
+        "/api/v1/task/completed": {
+            "put": {
+                "summary": "Update the task and sends a notification email to the attached user",
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [{
+                    "name": "task",
+                    "in": "body",
+                    "description": "Updates the status of the task to completed, and also pass user token as authorization header",
+                    "schema": {
+                        "$ref": "#/definitions/ChangeTaskStatus"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated this status of the task"
+                    },
+                    "404": {
+                        "description": "The admin or the task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "There was an error updating this task"
+                    }
+                }
+            }
+        },
+        "/api/v1/task/archive": {
+            "put": {
+                "summary": "Update the task and sends a notification email to the attached user",
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [{
+                    "name": "task",
+                    "in": "body",
+                    "description": "Updates the status of the task to archived, and also pass admin token as authorization header",
+                    "schema": {
+                        "$ref": "#/definitions/ChangeTaskStatus"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated this status of the task"
+                    },
+                    "404": {
+                        "description": "The admin or the task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "There was an error updating this task"
+                    }
+                }
+            }
+        },
+        "/api/v1/comment/create": {
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "description": "Creates a new comment",
+                "summary": "Used to create a new comment",
+                "parameters": [{
+                    "name": "comment",
+                    "in": "body",
+                    "description": "These can be passed, click on Model to see which ones are required. Also pass admin token as authorization header",
+                    "schema": {
+                        "$ref": "#/definitions/CreateComment"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The comment have been successfully created"
+                    },
+                    "404": {
+                        "description": "The task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "An unexpected error occured"
+                    }
+                }
+            }
+        },
+        "/api/v1/comment/fetch": {
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "description": "Fetches the comments linked to a particular task",
+                "summary": "Used to get the list of comments in a particular task",
+                "parameters": [{
+                    "name": "comment",
+                    "in": "body",
+                    "description": "These can be passed, click on Model to see which ones are required.",
+                    "schema": {
+                        "$ref": "#/definitions/ChangeTaskStatus"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The comment have been successfully returned"
+                    },
+                    "404": {
+                        "description": "The task with the passed id was not found"
+                    },
+                    "500": {
+                        "description": "An unexpected error occured"
+                    }
+                }
+            }
+        },
+        "/api/v1/comment/delete/{id}": {
+            "delete": {
+                "summary": "Delete comment with given the {id}",
+                "tags": [
+                    "Comment"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted this comment"
+                    },
+                    "401": {
+                        "description": "Unauthorized because the passed header does not contain the admin token"
+                    },
+                    "500": {
+                        "description": "An error occured when deleting this comment"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "UserLogin": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserRegister": {
+            "required": [
+                "username",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "CreateAdmin": {
+            "required": [
+                "fullname",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "fullname": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "AdminLogin": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "CreateTask": {
+            "required": [
+                "description",
+                "user_id"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "ChangeTaskStatus": {
+            "required": [
+                "task_id"
+            ],
+            "properties": {
+                "task_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "CreateComment": {
+            "required": [
+                "message",
+                "task_id"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "task_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        }
+    }
+}

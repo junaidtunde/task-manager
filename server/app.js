@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './../swagger/swagger.json';
 
 mongoose.connect(process.env.DB, {
             useNewUrlParser: true,
@@ -17,6 +19,8 @@ mongoose.connect(process.env.DB, {
 });
 
 const app = express();
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 
