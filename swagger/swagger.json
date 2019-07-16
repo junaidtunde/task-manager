@@ -389,7 +389,7 @@
         },
         "/api/v1/comment/delete/{id}": {
             "delete": {
-                "summary": "Delete comment with given the {id}",
+                "summary": "Delete comment with given the {id}, and sends a notification to the user who's comment was deleted",
                 "tags": [
                     "Comment"
                 ],
