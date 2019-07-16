@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Task Manager</title>
+</head>
+
+<body style="margin:0px; background: #F6F7FB; ">
+    <div width="100%"
+        style="background: #F6F7FB; padding: 0px 0px; font-family:arial; line-height:28px; height:100%;  width: 100%; color: #514d6a;">
+        <div style="max-width: 700px; padding:50px 0;  margin: 0px auto; font-size: 14px">
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 20px">
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top; padding-bottom:30px;" align="center">
+                            <h3>Task Manager</h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="padding: 40px; background: #fff;">
+                <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="border-bottom:1px solid #f6f6f6;">
+                                <h1 style="font-size:14px; font-family:arial; margin:0px; font-weight:bold;">Hello
+                                    <%- username %>
+                                </h1>
+                                <p style="margin-top:0px; color:#bbbbbb;">New changes have been made to your task</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px 0 30px 0;">
+                                <p>A new task has been assigned to you by the administrator, to view this, please
+                                    click on the link below:</p>
+                                <center>
+                                    <a href="https://<%= host %>" style="display: inline-block; padding: 11px 30px; margin: 20px 0px 30px;
+                                        font-size: 15px; color: #fff; background: #00DC9E; border-radius: 60px;
+                                        text-decoration:none;">
+                                        Profile Link
+                                    </a>
+                                </center>
+                                <b>Regards, <br>Administrator,<br>Task Manager.</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Emraid</title>
+    <title>Task Manager</title>
 </head>
 
 <body style="margin:0px; background: #F6F7FB; ">
@@ -14,11 +14,7 @@
                 <tbody>
                     <tr>
                         <td style="vertical-align: top; padding-bottom:30px;" align="center">
-                            <a href="javascript:void(0)" target="_blank">
-                                <img src="https://emraid.ng/assets/images/emraidlogo.png" width="200"
-                                    height="40"
-                                    alt="" style="border:none">
-                            </a>
+                            <h3>Task Manager</h3>
                         </td>
                     </tr>
                 </tbody>
@@ -29,29 +25,25 @@
                         <tr>
                             <td style="border-bottom:1px solid #f6f6f6;">
                                 <h1 style="font-size:14px; font-family:arial; margin:0px; font-weight:bold;">Hello
-                                    <%- lastname %>
+                                    <%- username %>
                                 </h1>
-                                <p style="margin-top:0px; color:#bbbbbb;">Please verify your account to continue</p>
+                                <p style="margin-top:0px; color:#bbbbbb;">New changes have been made to your task</p>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding:10px 0 30px 0;">
-                                <p>A request to verify your account has been made. If you did not make this request,
-                                    simply ignore this
-                                    email. If you did make this request, please verify by clicking on the link below:</p>
+                                <p>Your task status have been changed to <%- task_status %>, to view this change, please
+                                    click on the link below:</p>
                                 <center>
-                                    <a href="https://<%= host %>/confirmation/<%= token %>"
-                                        style="display: inline-block; padding: 11px 30px; margin: 20px 0px 30px; font-size: 15px; color: #fff; background: #ED0000; border-radius: 60px; text-decoration:none;">
-                                        Verification Link
+                                    <a href="https://<%= host %>"
+                                        style="display: inline-block; padding: 11px 30px; margin: 20px 0px 30px;
+                                        font-size: 15px; color: #fff; background: #00DC9E; border-radius: 60px;
+                                        text-decoration:none;">
+                                        Profile Link
                                     </a>
                                 </center>
-                                <b>Regards, <br>Gabriel Fabusuyi (Founder),<br>Emraid.</b>
+                                <b>Regards, <br>Administrator,<br>Task Manager.</b>
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="border-top:1px solid #f6f6f6; padding-top:20px; color:#777"> For more
-                                informations and inquires,
-                                please feel free to contact us at fabusuyi@emraid.com</td>
                         </tr>
                     </tbody>
                 </table>

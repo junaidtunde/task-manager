@@ -1,24 +1,8 @@
 import db from './../models/index';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import nodemailer from 'nodemailer';
-import ejs from 'ejs';
-import path from 'path';
 
 const userController = {};
-
-let sendMail = (dir_path, object) => {
-    return new Promise((resolve, reject) => {
-        ejs.renderFile(path.join(__dirname, '../templates/' + dir_path), object, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-};
-
 
 let signUser = (user) => {
     return new Promise((resolve, reject) => {
@@ -118,7 +102,7 @@ userController.getAllUsers = (req, res) => {
 
 userController.getUserInfo = (req, res) => {
     // Find User
-    db.User.findById(req.user).populate('posts').then(user => {
+    db.User.findById(req.user).populate('tasks').then(user => {
         if (user !== null) {
             res.status(200).json({ status: true, message: 'Found', data: user });
         } else {

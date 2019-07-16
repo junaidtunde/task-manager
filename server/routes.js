@@ -63,4 +63,20 @@ routes.post('/user/register', controllers.userController.registerUser);
 routes.get('/user/all', controllers.userController.getAllUsers);
 routes.post('/user/getInfo', verifyToken, controllers.userController.getUserInfo);
 
+// Admin Routes
+routes.post('/admin/create', controllers.adminController.createAdmin);
+routes.post('/admin/login', controllers.adminController.login);
+routes.get('/admin/one', verifyAdmin, controllers.adminController.getAdminDetails);
+
+// Task Routes
+routes.post('/task/create', verifyAdmin, controllers.taskController.createTask);
+routes.put('/task/inprogress', verifyToken, controllers.taskController.changeStatusToProgress);
+routes.put('/task/completed', verifyToken, controllers.taskController.changeStatusToCompleted);
+routes.put('/task/archive', verifyAdmin, controllers.taskController.changeStatusToArchived);
+
+// Comment Routes
+routes.post('/comment/create', controllers.commentController.createComment);
+routes.post('/comment/fetch', controllers.commentController.fetchCommentsAllByPost);
+routes.delete('/comment/delete/:id', verifyAdmin, controllers.commentController.deleteComment);
+
 export default routes;
