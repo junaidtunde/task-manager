@@ -18,14 +18,14 @@ const userSchema = new Schema({
         required: true,
         help: "This field is required"
     },
-    admin: {
-        type: Boolean,
-        default: false
-    },
     tasks: [{
         type: Schema.Types.ObjectId,
         ref: 'Task'
-    }]
+    }],
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 //Write some "pre" functions

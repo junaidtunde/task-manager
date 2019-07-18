@@ -19,10 +19,10 @@ let signUser = (user) => {
 userController.registerUser = (req, res) => {
     const { username, email, password } = req.body;
 
-    db.User.findOne({email: email}).then((u) => {
+    db.User.findOne({ $or: [{ username: username }, { email: email }] }).then((u) => {
         if (u !== null) {
             // This user already exists
-            res.status(409).json({status: false, message: "User already exists"});
+            res.status(409).json({status: false, message: "User already exists or username have already been taken"});
         } else {
             bcrypt.genSalt(10, function (err, salt) {
                 bcrypt.hash(password, salt, function (err, hash) {
@@ -102,13 +102,19 @@ userController.getAllUsers = (req, res) => {
 
 userController.getUserInfo = (req, res) => {
     // Find User
-    db.User.findById(req.user).populate('tasks').then(user => {
+    db.User.findById(req.user).populate(({
+        path: 'tasks',
+        populate: [{
+            path: 'comments',
+            model: 'Comment'
+        }]
+    })).then(user => {
         if (user !== null) {
             res.status(200).json({ status: true, message: 'Found', data: user });
         } else {
             res.status(404).json({ status: false, message: 'This user was not found' });
         }
     }).catch(err => res.status(500).json({ status: false, message: err.message }));
-}
+};
 
 export default userController;

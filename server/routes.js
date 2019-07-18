@@ -61,7 +61,7 @@ routes.get('/', (req, res) => {
 routes.post('/user/login', controllers.userController.loginUser);
 routes.post('/user/register', controllers.userController.registerUser);
 routes.get('/user/all', controllers.userController.getAllUsers);
-routes.post('/user/getInfo', verifyToken, controllers.userController.getUserInfo);
+routes.get('/user/getInfo', verifyToken, controllers.userController.getUserInfo);
 
 // Admin Routes
 routes.post('/admin/create', controllers.adminController.createAdmin);
@@ -73,9 +73,10 @@ routes.post('/task/create', verifyAdmin, controllers.taskController.createTask);
 routes.put('/task/inprogress', verifyToken, controllers.taskController.changeStatusToProgress);
 routes.put('/task/completed', verifyToken, controllers.taskController.changeStatusToCompleted);
 routes.put('/task/archive', verifyAdmin, controllers.taskController.changeStatusToArchived);
+routes.get('/task/all', controllers.taskController.getAllTasks);
 
 // Comment Routes
-routes.post('/comment/create', controllers.commentController.createComment);
+routes.post('/comment/create', verifyToken, controllers.commentController.createComment);
 routes.post('/comment/fetch', controllers.commentController.fetchCommentsAllByTask);
 routes.delete('/comment/delete/:id', verifyAdmin, controllers.commentController.deleteComment);
 

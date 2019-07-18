@@ -59,11 +59,14 @@ taskController.createTask = (req, res) => {
                                         msg: err.message
                                     });
                                 }
-                                res.status(200).json({
-                                    status: true,
-                                    message: 'A mail has been sent to ' + user.email + '.' + ' and a new task has been created',
-                                    data: completed,
-                                    user
+                                user.tasks.push(task._id);
+                                user.save().then(saved => {
+                                    res.status(200).json({
+                                        status: true,
+                                        message: 'A mail has been sent to ' + user.email + '.' + ' and a new task has been created',
+                                        data: completed,
+                                        user_name: user.username
+                                    });
                                 });
                             });
                         });
@@ -138,6 +141,7 @@ taskController.changeStatusToCompleted = (req, res) => {
                 res.status(404).json({status: false, message: 'The task was not found'});
             }
             task.status = 'completed';
+            task.created_at = Date.now();
             task.save().then(saved => {
                 // Send the email
                 const transporter = nodemailer.createTransport({
@@ -189,6 +193,7 @@ taskController.changeStatusToArchived = (req, res) => {
                 res.status(404).json({status: false, message: 'The task was not found'});
             }
             task.status = 'archived';
+            task.created_at = Date.now();
             task.save().then(saved => {
                 // Send the email
                 const transporter = nodemailer.createTransport({
@@ -199,7 +204,7 @@ taskController.changeStatusToArchived = (req, res) => {
                     }
                 });
 
-                sendMail('progress.ejs', { username: user.username, task_status: 'archived', host: req.headers.host, protocol: req.protocol }).then(data => {
+                sendMail('progress.ejs', { username: task.user.username, task_status: 'archived', host: req.headers.host, protocol: req.protocol }).then(data => {
                     const mailOptions = {
                         from: 'task-manager@yourwebapp.com',
                         to: task.user.email,
@@ -228,5 +233,16 @@ taskController.changeStatusToArchived = (req, res) => {
         res.status(401).json({status: false, message: err.message});
     });
 };
+
+taskController.getAllTasks = (req, res) => {
+    db.Task.find().populate('comments').populate('user').then(tasks => {
+        if (tasks === null || tasks.length === 0) {
+            res.status(404).json({status: false, message: 'There are no tasks at the moment'});
+        }
+        res.status(200).json({status: true, message: 'Found all tasks', data: tasks})
+    }).catch(err => {
+        res.status(500).json({status: false, message: err.message});
+    })
+}
 
 export default taskController;

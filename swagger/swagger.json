@@ -89,29 +89,20 @@
             }
         },
         "/api/v1/user/getInfo": {
-            "post": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
-                "description": "Gets all the details for a particular user",
-                "summary": "Used to get all details for a specific user",
-                "parameters": [{
-                    "name": "user",
-                    "in": "body",
-                    "description": "Only the user's token should be passed as header"
-                }],
-                "produces": [
-                    "application/json"
-                ],
+                "summary": "Get user info",
                 "responses": {
                     "200": {
-                        "description": "The details have been returned successfully"
+                        "description": "Succesfully gotten user's info"
                     },
                     "404": {
-                        "description": "The user was not found"
+                        "description": "The user's info was not found"
                     },
                     "500": {
-                        "description": "An unexpected error occured"
+                        "description": "An error occured while fetching the user's info"
                     }
                 }
             }
@@ -321,6 +312,25 @@
                     },
                     "500": {
                         "description": "There was an error updating this task"
+                    }
+                }
+            }
+        },
+        "/api/v1/task/all": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get all the tasks",
+                "responses": {
+                    "200": {
+                        "description": "Succesfully fetched the tasks"
+                    },
+                    "404": {
+                        "description": "There are no tasks yet."
+                    },
+                    "500": {
+                        "description": "An error occured while fetching all the tasks"
                     }
                 }
             }
