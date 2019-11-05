@@ -28,7 +28,7 @@
     "file-saver": "^2.0.0",
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.10",
-    "mongoose": "^5.3.15",
+    "mongoose": "^5.7.5",
     "multer": "^1.4.1",
     "node-cron": "^2.0.3",
     "nodemailer": "^4.7.0",
